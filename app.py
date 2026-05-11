@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 import smtplib
@@ -27,22 +27,12 @@ print("SMTP_USER:", SMTP_USER)
 print("RECEIVER_EMAIL:", RECEIVER_EMAIL)
 
 # =====================================================
-# HOME ROUTE
+# HOME ROUTE — serves index.html from root directory
 # =====================================================
 
 @app.route("/")
 def home():
-
-    try:
-        with open("new.html", "r", encoding="utf-8") as f:
-            return f.read()
-
-    except Exception as e:
-
-        return f"""
-        <h1>ERROR LOADING HTML</h1>
-        <pre>{str(e)}</pre>
-        """
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), "index.html")
 
 # =====================================================
 # SEND EMAIL ROUTE
