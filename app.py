@@ -1,13 +1,13 @@
 import os
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-app = Flask(__name__, template_folder=".")
+app = Flask(__name__)
 CORS(app)
 
 # =====================================================
@@ -22,7 +22,7 @@ SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
 
-# DEBUG CHECK
+# DEBUG
 print("SMTP_USER:", SMTP_USER)
 print("RECEIVER_EMAIL:", RECEIVER_EMAIL)
 
@@ -32,7 +32,17 @@ print("RECEIVER_EMAIL:", RECEIVER_EMAIL)
 
 @app.route("/")
 def home():
-    return render_template("new.html")
+
+    try:
+        with open("new.html", "r", encoding="utf-8") as f:
+            return f.read()
+
+    except Exception as e:
+
+        return f"""
+        <h1>ERROR LOADING HTML</h1>
+        <pre>{str(e)}</pre>
+        """
 
 # =====================================================
 # SEND EMAIL ROUTE
@@ -48,6 +58,7 @@ def send_email():
         # ==========================
 
         if not SMTP_USER or not SMTP_PASSWORD or not RECEIVER_EMAIL:
+
             return jsonify({
                 "success": False,
                 "error": "Environment variables missing"
@@ -60,6 +71,7 @@ def send_email():
         data = request.get_json()
 
         if not data:
+
             return jsonify({
                 "success": False,
                 "error": "No JSON data received"
@@ -74,6 +86,7 @@ def send_email():
         # ==========================
 
         if not name or not email or not message:
+
             return jsonify({
                 "success": False,
                 "error": "All fields are required"
@@ -118,7 +131,10 @@ Message:
 
         server.ehlo()
 
-        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.login(
+            SMTP_USER,
+            SMTP_PASSWORD
+        )
 
         server.sendmail(
             SMTP_USER,
@@ -127,6 +143,8 @@ Message:
         )
 
         server.quit()
+
+        print("EMAIL SENT SUCCESSFULLY")
 
         return jsonify({
             "success": True,
@@ -147,8 +165,9 @@ Message:
 # =====================================================
 
 if __name__ == "__main__":
+
     app.run(
-        debug=True,
         host="0.0.0.0",
-        port=5000
+        port=5000,
+        debug=True
     )
