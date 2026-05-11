@@ -17,10 +17,14 @@ CORS(app)
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
 
-# GET FROM RENDER ENVIRONMENT VARIABLES
+# ENV VARIABLES FROM RENDER
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
+
+# DEBUG CHECK
+print("SMTP_USER:", SMTP_USER)
+print("RECEIVER_EMAIL:", RECEIVER_EMAIL)
 
 # =====================================================
 # HOME ROUTE
@@ -38,11 +42,32 @@ def home():
 def send_email():
 
     try:
+
+        # ==========================
+        # CHECK ENV VARIABLES
+        # ==========================
+
+        if not SMTP_USER or not SMTP_PASSWORD or not RECEIVER_EMAIL:
+            return jsonify({
+                "success": False,
+                "error": "Environment variables missing"
+            }), 500
+
+        # ==========================
+        # GET JSON DATA
+        # ==========================
+
         data = request.get_json()
 
-        name = data.get("name")
-        email = data.get("email")
-        message = data.get("message")
+        if not data:
+            return jsonify({
+                "success": False,
+                "error": "No JSON data received"
+            }), 400
+
+        name = data.get("name", "").strip()
+        email = data.get("email", "").strip()
+        message = data.get("message", "").strip()
 
         # ==========================
         # VALIDATION
@@ -93,10 +118,7 @@ Message:
 
         server.ehlo()
 
-        server.login(
-            SMTP_USER,
-            SMTP_PASSWORD
-        )
+        server.login(SMTP_USER, SMTP_PASSWORD)
 
         server.sendmail(
             SMTP_USER,
@@ -113,7 +135,7 @@ Message:
 
     except Exception as e:
 
-        print("ERROR:", e)
+        print("FULL ERROR:", str(e))
 
         return jsonify({
             "success": False,
