@@ -913,7 +913,7 @@ document.getElementById('contactForm').addEventListener('submit',async function(
     const d=await res.json();
     if(d.success){showToast('✅ Message sent!','success');this.reset();}
     else showToast('❌ '+(d.error||'Failed.'),'error');
-  }catch{showToast('❌ Network error.','error');}
+  }catch(err){showToast('❌ Error: '+err.message,'error');console.error('FETCH ERROR:',err);}
   finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';}
 });
 </script>
