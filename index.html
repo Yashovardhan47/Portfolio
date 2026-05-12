@@ -911,6 +911,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
 
   const templateParams = {
+    to_name:    'Yashovardhan',
     from_name:  document.getElementById('name').value.trim(),
     from_email: document.getElementById('email').value.trim(),
     message:    document.getElementById('message').value.trim()
