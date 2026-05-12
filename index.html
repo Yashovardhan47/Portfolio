@@ -903,19 +903,42 @@ document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.stg').forEach(el=>ro.obs
 const t=document.getElementById('toastEl');
 function showToast(m,tp='success'){t.textContent=m;t.className=`toast show ${tp}`;setTimeout(()=>t.className='toast',4500);}
 
-/* CONTACT FORM */
-document.getElementById('contactForm').addEventListener('submit',async function(e){
+/* CONTACT FORM — EmailJS */
+document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
-  const btn=document.getElementById('sendBtn');
-  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
-  try{
-    const res=await fetch('/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('name').value.trim(),email:document.getElementById('email').value.trim(),message:document.getElementById('message').value.trim()})});
-    const d=await res.json();
-    if(d.success){showToast('✅ Message sent!','success');this.reset();}
-    else showToast('❌ '+(d.error||'Failed.'),'error');
-  }catch(err){showToast('❌ Error: '+err.message,'error');console.error('FETCH ERROR:',err);}
-  finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';}
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+
+  const templateParams = {
+    from_name:  document.getElementById('name').value.trim(),
+    from_email: document.getElementById('email').value.trim(),
+    message:    document.getElementById('message').value.trim()
+  };
+
+  emailjs.send(
+    'service_rcm1k4d',
+    'template_q75xz9x',
+    templateParams
+  )
+  .then(function() {
+    showToast('✅ Message sent! I\'ll reply soon.', 'success');
+    document.getElementById('contactForm').reset();
+  })
+  .catch(function(err) {
+    console.error('EmailJS error:', err);
+    showToast('❌ Failed to send. Try emailing directly.', 'error');
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+  });
 });
+</script>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('tG04kz3Kl6qbFNMKD');
 </script>
 </body>
 </html>
