@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" data-motion="full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K Yashovardhan — Interactive Portfolio</title>
+  <meta name="description" content="An interactive portfolio experience by K Yashovardhan: data science, verified AI and full-stack engineering presented as systems in motion.">
+  <meta name="author" content="K Yashovardhan">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="K Yashovardhan — Systems in Motion">
+  <meta property="og:description" content="Explore six engineering case studies through an interactive, presentation-style portfolio.">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/192561011?v=4">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="static/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#intro">Skip to portfolio</a>
+
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__mark">KY<span>®</span></div>
+    <div class="boot__track"><span></span></div>
+    <p><span id="boot-value">0</span>% — assembling the evidence</p>
+  </div>
+
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__noise"></div>
+    <div class="ambient__grid"></div>
+    <div class="ambient__glow" id="ambient-glow"></div>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <a class="wordmark magnetic" href="#intro" data-go="intro" aria-label="K Yashovardhan — introduction"><span>KY</span><i></i></a>
+    <div class="topbar__status"><span class="pulse"></span><span class="status-wide">Available for the right opportunity</span><span class="status-short">Available</span></div>
+    <div class="topbar__actions">
+      <button class="icon-button magnetic" id="motion-toggle" type="button" aria-label="Reduce motion" aria-pressed="false"><span class="motion-icon" aria-hidden="true"></span><span class="button-label">Motion</span></button>
+      <button class="menu-trigger magnetic" id="menu-trigger" type="button" aria-expanded="false" aria-controls="menu-panel"><span>Menu</span><i></i><i></i></button>
+    </div>
+  </header>
+
+  <aside class="scene-rail" aria-label="Portfolio chapters">
+    <div class="scene-rail__meter"><span id="scene-meter"></span></div>
+    <ol>
+      <li><button data-go="intro"><span>01</span><b>Opening</b></button></li>
+      <li><button data-go="profile"><span>02</span><b>Profile</b></button></li>
+      <li><button data-go="capabilities"><span>03</span><b>System</b></button></li>
+      <li><button data-go="work"><span>04</span><b>Evidence</b></button></li>
+      <li><button data-go="journey"><span>05</span><b>Journey</b></button></li>
+      <li><button data-go="contact"><span>06</span><b>Contact</b></button></li>
+    </ol>
+  </aside>
+
+  <div class="scene-count" aria-live="polite"><span id="scene-current">01</span><i></i><span>06</span></div>
+
+  <nav class="menu-panel" id="menu-panel" aria-hidden="true" aria-label="Expanded navigation">
+    <div class="menu-panel__wash" aria-hidden="true"></div>
+    <div class="menu-panel__inner">
+      <p class="micro-label">Choose a chapter</p>
+      <ol class="menu-panel__links">
+        <li><button data-go="intro"><span>01</span>Opening statement<small>Start the story</small></button></li>
+        <li><button data-go="profile"><span>02</span>Design philosophy<small>How I think</small></button></li>
+        <li><button data-go="capabilities"><span>03</span>Capability system<small>What I use</small></button></li>
+        <li><button data-go="work"><span>04</span>Project evidence<small>What I shipped</small></button></li>
+        <li><button data-go="journey"><span>05</span>Signal trail<small>How I grew</small></button></li>
+        <li><button data-go="contact"><span>06</span>Start a conversation<small>What comes next</small></button></li>
+      </ol>
+      <div class="menu-panel__footer">
+        <a href="https://github.com/Yashovardhan47" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/yashovardhank47" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <button type="button" data-open-command>Quick commands <kbd>⌘K</kbd></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="story" id="main-content">
+    <section class="scene scene--intro is-active" id="intro" data-scene="01" data-tone="acid">
+      <div class="scene__orb orb--one" aria-hidden="true"></div><div class="scene__orb orb--two" aria-hidden="true"></div>
+      <div class="scene__inner intro-layout">
+        <div class="intro-copy" data-reveal-group>
+          <p class="chapter-label"><span>01</span> Opening statement / 2026</p>
+          <h1 class="display-title" aria-label="I turn uncertainty into useful systems.">
+            <span class="title-line">I turn</span><span class="title-line title-line--outline">uncertainty</span><span class="title-line title-line--offset">into <em>useful systems.</em></span>
+          </h1>
+          <p class="intro-deck">Data scientist + Python full-stack developer building explainable AI products from the first hypothesis to the final interaction.</p>
+          <div class="intro-actions">
+            <button class="action-pill magnetic" type="button" data-go="work"><span>Enter selected work</span><i>↘</i></button>
+            <button class="text-action" type="button" data-open-command>Explore with commands <kbd>⌘K</kbd></button>
+          </div>
+        </div>
+
+        <div class="intro-stage" id="intro-stage" aria-label="Interactive developer profile card">
+          <div class="stage-ring stage-ring--outer" aria-hidden="true"></div><div class="stage-ring stage-ring--inner" aria-hidden="true"></div>
+          <div class="portrait-card tilt-card">
+            <div class="portrait-card__image"><img src="https://avatars.githubusercontent.com/u/192561011?v=4" alt="K Yashovardhan" width="460" height="560"><div class="portrait-card__scan" aria-hidden="true"></div></div>
+            <div class="portrait-card__caption"><span>K Yashovardhan</span><span>Andhra Pradesh / India</span></div>
+          </div>
+          <div class="floating-note floating-note--role"><span>Current mode</span><strong id="role-cycle">Data scientist</strong></div>
+          <div class="floating-note floating-note--build"><span>Build principle</span><strong>Evidence &gt; claims</strong></div>
+          <button class="stage-hotspot magnetic" type="button" data-open-assistant aria-label="Ask the portfolio assistant"><span>Ask<br>portfolio</span></button>
+        </div>
+
+        <div class="intro-proof" aria-label="Portfolio highlights">
+          <div><strong data-count="6">0</strong><span>shipped case studies</span></div><div><strong data-count="4">0</strong><span>engineering lanes</span></div><div><strong data-count="8.5" data-decimals="1">0</strong><span>CGPA / 10</span></div><div><strong data-count="2027">0</strong><span>graduation</span></div>
+        </div>
+      </div>
+      <button class="scroll-cue" type="button" data-go="profile"><span>Drag the story</span><i aria-hidden="true"></i></button>
+    </section>
+
+    <section class="scene scene--profile" id="profile" data-scene="02" data-tone="coral">
+      <div class="scene__inner profile-layout">
+        <div class="profile-heading" data-reveal-group>
+          <p class="chapter-label"><span>02</span> Design philosophy</p>
+          <h2 class="scene-title">I don’t stop at<br><em>“the model works.”</em></h2>
+          <p>I connect analysis, engineering and interface design so a strong technical idea can survive contact with a real user.</p>
+        </div>
+        <div class="principle-deck" id="principle-deck">
+          <article class="principle-card is-active" data-principle="0"><div class="principle-card__index">01 / 03</div><div class="principle-card__graphic graphic--question" aria-hidden="true"><i></i><i></i><i></i><b>?</b></div><div><p class="micro-label">Frame it</p><h3>Begin with the decision.</h3><p>I translate a broad ask into a measurable question, named constraints and an honest definition of success.</p></div></article>
+          <article class="principle-card" data-principle="1"><div class="principle-card__index">02 / 03</div><div class="principle-card__graphic graphic--graph" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><p class="micro-label">Prove it</p><h3>Make reasoning inspectable.</h3><p>Typed graphs, deterministic workflows, audit events and reproducible analysis turn outputs into evidence.</p></div></article>
+          <article class="principle-card" data-principle="2"><div class="principle-card__index">03 / 03</div><div class="principle-card__graphic graphic--ship" aria-hidden="true"><i></i><i></i><i></i><b>↗</b></div><div><p class="micro-label">Ship it</p><h3>Design the last mile.</h3><p>Secure APIs, clear states, accessible interactions and production checks are part of the product—not polish added later.</p></div></article>
+          <div class="principle-controls" aria-label="Design principle controls"><button type="button" id="principle-prev" aria-label="Previous principle">←</button><div><span id="principle-progress"></span></div><button type="button" id="principle-next" aria-label="Next principle">→</button></div>
+        </div>
+        <div class="profile-marquee" aria-hidden="true"><div><span>DATA SCIENCE</span><i>✦</i><span>FULL STACK</span><i>✦</i><span>VERIFIED AI</span><i>✦</i><span>PRODUCT THINKING</span><i>✦</i></div><div><span>DATA SCIENCE</span><i>✦</i><span>FULL STACK</span><i>✦</i><span>VERIFIED AI</span><i>✦</i><span>PRODUCT THINKING</span><i>✦</i></div></div>
+      </div>
+    </section>
+
+    <section class="scene scene--capabilities" id="capabilities" data-scene="03" data-tone="violet">
+      <div class="scene__inner capability-layout">
+        <header class="capability-heading" data-reveal-group><p class="chapter-label"><span>03</span> Capability system</p><h2 class="scene-title">One builder.<br><em>Four connected modes.</em></h2><p>Select a mode to inspect the tools and contribution profile.</p></header>
+        <div class="capability-console">
+          <div class="mode-tabs" role="tablist" aria-label="Capability modes">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-mode="language"><span>01</span>Languages</button><button type="button" role="tab" aria-selected="false" data-mode="ai"><span>02</span>AI + data</button><button type="button" role="tab" aria-selected="false" data-mode="stack"><span>03</span>Full stack</button><button type="button" role="tab" aria-selected="false" data-mode="delivery"><span>04</span>Delivery</button>
+          </div>
+          <div class="capability-viz">
+            <div class="radar" id="radar" aria-label="Animated capability visualization">
+              <svg viewBox="0 0 420 420" role="img" aria-labelledby="radar-title"><title id="radar-title">Capability distribution for the selected mode</title><g class="radar__grid"><polygon points="210,35 376,156 313,351 107,351 44,156"></polygon><polygon points="210,79 334,169 287,315 133,315 86,169"></polygon><polygon points="210,123 293,183 261,278 159,278 127,183"></polygon><line x1="210" y1="210" x2="210" y2="35"></line><line x1="210" y1="210" x2="376" y2="156"></line><line x1="210" y1="210" x2="313" y2="351"></line><line x1="210" y1="210" x2="107" y2="351"></line><line x1="210" y1="210" x2="44" y2="156"></line></g><polygon class="radar__shape" id="radar-shape" points="210,70 330,171 280,306 146,298 91,171"></polygon><g class="radar__dots" id="radar-dots"></g></svg>
+              <span class="radar__label radar__label--a">Model</span><span class="radar__label radar__label--b">API</span><span class="radar__label radar__label--c">UX</span><span class="radar__label radar__label--d">Data</span><span class="radar__label radar__label--e">Ship</span><div class="radar__center"><strong id="mode-score">92</strong><span>active signal</span></div>
+            </div>
+            <div class="capability-readout"><p class="micro-label" id="mode-code">MODE / 01</p><h3 id="mode-title">Languages</h3><p id="mode-description">The expressive layer: Python for systems and analysis, SQL for evidence, JavaScript for interaction, and Java for foundations.</p><div class="tool-cloud" id="tool-cloud" aria-live="polite"></div><button class="run-signal" id="run-signal" type="button"><span>Run signal test</span><i>▶</i></button><div class="signal-log" id="signal-log" aria-live="polite"><span>Ready. Select a mode or run the test.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene--work" id="work" data-scene="04" data-tone="cyan">
+      <div class="scene__inner work-layout">
+        <header class="work-heading" data-reveal-group><p class="chapter-label"><span>04</span> Selected evidence</p><h2 class="scene-title">Six systems.<br><em>One standard: complete.</em></h2><p>Switch projects to inspect the problem, architecture and engineering proof.</p></header>
+        <div class="project-browser">
+          <div class="project-list" role="tablist" aria-label="Project case studies"><button class="is-active" type="button" role="tab" aria-selected="true" data-project="0"><span>01</span><b>BillFlow AI</b><small>AI finance</small></button><button type="button" role="tab" aria-selected="false" data-project="1"><span>02</span><b>OmniCalc + CalcGraph</b><small>Verified AI</small></button><button type="button" role="tab" aria-selected="false" data-project="2"><span>03</span><b>Quick Hire</b><small>Recruitment</small></button><button type="button" role="tab" aria-selected="false" data-project="3"><span>04</span><b>BloomSense</b><small>Computer vision</small></button><button type="button" role="tab" aria-selected="false" data-project="4"><span>05</span><b>Mental Health</b><small>Data science</small></button><button type="button" role="tab" aria-selected="false" data-project="5"><span>06</span><b>Flower Vision</b><small>ML delivery</small></button></div>
+          <article class="project-stage" id="project-stage" aria-live="polite">
+            <div class="project-stage__visual"><div class="project-window tilt-card"><div class="project-window__bar"><span></span><span></span><span></span><b id="project-domain">safepay://decision-engine</b></div><div class="project-window__canvas" id="project-canvas" data-visual="finance"><div class="canvas-orbit" aria-hidden="true"><i></i><i></i><i></i></div><div class="canvas-metric"><span id="project-metric-label">Liquidity confidence</span><strong id="project-metric">94%</strong></div><div class="canvas-flow" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div></div><span class="project-status" id="project-status">Working vertical slice</span></div>
+            <div class="project-stage__copy"><div class="project-meta"><span id="project-number">CASE 01 / 06</span><span id="project-category">AI FINANCE · FULL STACK</span></div><h3 id="project-title">BillFlow AI</h3><p class="project-tagline" id="project-tagline">An explainable finance operating system that plans bills, protects a safety reserve and keeps payment authorization human-controlled.</p><div class="project-facts"><div><span>Problem</span><p id="project-problem">Traditional trackers describe past spending but do not safely coordinate upcoming bills and competing cash-flow deadlines.</p></div><div><span>Proof</span><p id="project-proof">FastAPI + React vertical slice, authentication, PostgreSQL, deterministic provider connectors, audit events and automated tests.</p></div></div><div class="project-stack" id="project-stack"></div><div class="project-actions"><a class="action-pill magnetic" id="project-link" href="https://github.com/Yashovardhan47/AI_finance_manage_system_AI" target="_blank" rel="noopener"><span>Inspect repository</span><i>↗</i></a><div class="project-arrows"><button id="project-prev" type="button" aria-label="Previous project">←</button><button id="project-next" type="button" aria-label="Next project">→</button></div></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene--journey" id="journey" data-scene="05" data-tone="amber">
+      <div class="scene__inner journey-layout">
+        <header class="journey-heading" data-reveal-group><p class="chapter-label"><span>05</span> Signal trail</p><h2 class="scene-title">Learning by<br><em>building in public.</em></h2><p>A compact timeline of the experiences behind the work.</p></header>
+        <div class="timeline" id="timeline"><div class="timeline__line"><span id="timeline-progress"></span></div><button class="timeline-item is-active" type="button" data-year="2023" data-detail="Started B.Tech in Computer Science — Data Science at Mohan Babu University."><span>2023</span><b>Foundation</b><small>Data science degree begins</small><i></i></button><button class="timeline-item" type="button" data-year="2024" data-detail="Moved from notebooks into complete browser-facing projects with Flask, databases and REST APIs."><span>2024</span><b>From model to product</b><small>Full-stack delivery</small><i></i></button><button class="timeline-item" type="button" data-year="2025" data-detail="Completed Deloitte’s Data Analytics Job Simulation: Python preparation, Tableau dashboards and a pay-equality investigation."><span>2025</span><b>Business evidence</b><small>Deloitte simulation</small><i></i></button><button class="timeline-item" type="button" data-year="2026" data-detail="Building verified AI systems with deterministic execution, explainability, secure authentication and production checks."><span>2026</span><b>Verified intelligence</b><small>AI systems mature</small><i></i></button><button class="timeline-item" type="button" data-year="2027" data-detail="Graduation target — ready to bring a data-first, product-complete mindset to an ambitious engineering team."><span>2027</span><b>Next chapter</b><small>Graduation target</small><i></i></button></div>
+        <div class="timeline-readout"><span id="timeline-year">2023</span><p id="timeline-detail">Started B.Tech in Computer Science — Data Science at Mohan Babu University.</p><a id="certificate-link" href="https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_fa47FeoPhJofBMnoN_1753769462531_completion_certificate.pdf" target="_blank" rel="noopener">View Deloitte certificate ↗</a></div>
+        <div class="credential-strip"><span>Also certified</span><div><b>Infosys</b> Python stack</div><div><b>Udemy</b> Python + Java</div><div><b>L&amp;T</b> Data visualization</div></div>
+      </div>
+    </section>
+
+    <section class="scene scene--contact" id="contact" data-scene="06" data-tone="pink">
+      <div class="scene__inner contact-layout">
+        <div class="contact-copy" data-reveal-group><p class="chapter-label"><span>06</span> Start a conversation</p><h2 class="contact-title">Have a hard problem?<br><em>Let’s make it move.</em></h2><p>I’m open to internships, entry-level roles and thoughtful collaborations across data, AI and full-stack engineering.</p><div class="contact-links"><a href="https://www.linkedin.com/in/yashovardhank47" target="_blank" rel="noopener"><span>LinkedIn</span><i>Connect ↗</i></a><a href="https://github.com/Yashovardhan47" target="_blank" rel="noopener"><span>GitHub</span><i>Inspect ↗</i></a><a href="https://leetcode.com/u/Yashovardhan3547/" target="_blank" rel="noopener"><span>LeetCode</span><i>Review ↗</i></a></div></div>
+        <form class="contact-form" id="contact-form" novalidate><div class="form-intents"><span>Conversation starter</span><button type="button" data-intent="I would like to discuss an internship opportunity with you.">Internship</button><button type="button" data-intent="I would like to discuss an entry-level engineering role with you.">Full-time role</button><button type="button" data-intent="I have a project collaboration idea I would like to explore with you.">Collaboration</button></div><label><span>Your name</span><input name="name" type="text" autocomplete="name" required placeholder="What should I call you?"></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required placeholder="you@company.com"></label><label><span>Message</span><textarea name="message" rows="4" required placeholder="Tell me about the opportunity or problem..."></textarea></label><input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="send-button magnetic" type="submit"><span>Send the signal</span><i>↗</i><b aria-hidden="true"></b></button><p class="form-status" id="form-status" aria-live="polite"></p></form>
+        <footer class="closing"><span>Designed to be explored, not skimmed.</span><span>© 2026 K Yashovardhan</span><button type="button" data-go="intro">Replay from top ↑</button></footer>
+      </div>
+    </section>
+  </main>
+
+  <div class="command" id="command" aria-hidden="true"><button class="command__backdrop" type="button" data-close-command aria-label="Close command palette"></button><div class="command__dialog" role="dialog" aria-modal="true" aria-labelledby="command-title"><div class="command__search"><span aria-hidden="true">⌘</span><input id="command-input" type="search" autocomplete="off" placeholder="Where do you want to go?" aria-labelledby="command-title"><kbd>ESC</kbd></div><p class="micro-label" id="command-title">Navigate / act</p><div class="command__results" id="command-results"><button type="button" data-command="intro" data-search="opening home introduction"><span>01</span><b>Go to opening</b><i>↵</i></button><button type="button" data-command="capabilities" data-search="skills capabilities stack"><span>02</span><b>Inspect capabilities</b><i>↵</i></button><button type="button" data-command="work" data-search="projects work evidence"><span>03</span><b>Browse project evidence</b><i>↵</i></button><button type="button" data-command="assistant" data-search="ask assistant question"><span>04</span><b>Ask portfolio assistant</b><i>↵</i></button><a href="https://github.com/Yashovardhan47/Portfolio/blob/main/static/Yashovardhan_resume.pdf" target="_blank" rel="noopener" data-search="resume cv download"><span>05</span><b>Open résumé</b><i>↗</i></a><a href="https://github.com/Yashovardhan47" target="_blank" rel="noopener" data-search="github source repositories"><span>06</span><b>Open GitHub profile</b><i>↗</i></a></div><div class="command__hint"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> select</span></div></div></div>
+
+  <aside class="assistant" id="assistant" aria-hidden="true" aria-labelledby="assistant-title"><button class="assistant__backdrop" type="button" data-close-assistant aria-label="Close portfolio assistant"></button><div class="assistant__panel"><div class="assistant__head"><div><span class="pulse"></span><div><p class="micro-label">Interactive guide</p><h2 id="assistant-title">Ask the portfolio</h2></div></div><button type="button" data-close-assistant aria-label="Close assistant">×</button></div><div class="assistant__messages" id="assistant-messages" aria-live="polite"><div class="assistant__message assistant__message--bot">I can summarize projects, skills, education or the kind of role Yashovardhan is looking for.</div></div><div class="assistant__prompts" id="assistant-prompts"><button type="button">Which project shows the strongest backend work?</button><button type="button">Summarize the AI experience.</button><button type="button">What roles are a good fit?</button></div><form class="assistant__form" id="assistant-form"><label for="assistant-input">Ask a question</label><input id="assistant-input" name="question" type="text" required maxlength="280" placeholder="Ask about skills, projects or experience..."><button type="submit" aria-label="Send question">↑</button></form></div></aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">This portfolio is designed as an interactive experience. Enable JavaScript to explore every chapter.</div></noscript>
+  <script src="static/js/main.js" defer></script>
+</body>
+</html>
