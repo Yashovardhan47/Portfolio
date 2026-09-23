@@ -1,4 +1,5 @@
-﻿venv/
+venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
@@ -6,5 +7,10 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+instance/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 .DS_Store
 Thumbs.db

@@ -1,0 +1,61 @@
+{
+  "name": "K Yashovardhan",
+  "short_name": "Yashovardhan",
+  "headline": "Data Science & Python Full-Stack Developer",
+  "summary": "I build explainable AI systems, data products and secure full-stack applications from model and API design through polished user experiences.",
+  "location": "Andhra Pradesh, India",
+  "availability": "Open to internships and entry-level opportunities",
+  "education": {
+    "institution": "Mohan Babu University",
+    "degree": "B.Tech in Computer Science — Data Science",
+    "period": "2023–2027",
+    "cgpa": "8.5 / 10"
+  },
+  "roles": [
+    "Data Scientist",
+    "Data Analyst",
+    "Python Developer",
+    "Full-Stack Developer"
+  ],
+  "links": {
+    "github": "https://github.com/Yashovardhan47",
+    "linkedin": "https://www.linkedin.com/in/yashovardhank47",
+    "leetcode": "https://leetcode.com/u/Yashovardhan3547/",
+    "linktree": "https://linktr.ee/kyashovardhank47"
+  },
+  "skills": [
+    {
+      "label": "Languages",
+      "items": ["Python", "SQL", "JavaScript", "Java"]
+    },
+    {
+      "label": "AI & Data",
+      "items": ["Machine Learning", "pandas", "NumPy", "XGBoost", "YOLOv8", "Tableau", "Power BI"]
+    },
+    {
+      "label": "Full Stack",
+      "items": ["FastAPI", "Flask", "React", "REST APIs", "HTML", "CSS", "PHP"]
+    },
+    {
+      "label": "Data & Delivery",
+      "items": ["PostgreSQL", "MySQL", "SQLite", "Docker", "Git", "GitHub Actions"]
+    }
+  ],
+  "experience": {
+    "company": "Deloitte",
+    "role": "Data Analytics Job Simulation",
+    "period": "2025",
+    "highlights": [
+      "Prepared and analyzed structured business datasets with Python and pandas.",
+      "Built Tableau dashboards to communicate operational patterns and KPIs.",
+      "Completed a pay-equality analysis and translated the findings into a clear business story."
+    ],
+    "certificate": "https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_fa47FeoPhJofBMnoN_1753769462531_completion_certificate.pdf"
+  },
+  "certifications": [
+    "Deloitte Data Analytics Simulation",
+    "Infosys Python Technology Stack",
+    "Udemy Python & Java",
+    "L&T Data Visualization & Analytics"
+  ]
+}

@@ -1,21 +1,16 @@
+"""Application entrypoint for local development and production WSGI servers."""
+
 import os
-from flask import Flask, send_from_directory
-from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+from portfolio import create_app
 
-# =====================================================
-# HOME ROUTE — serves index.html from root directory
-# =====================================================
 
-@app.route("/")
-def home():
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), "index.html")
+app = create_app()
 
-# =====================================================
-# RUN APP
-# =====================================================
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(
+        host=os.getenv("HOST", "127.0.0.1"),
+        port=int(os.getenv("PORT", "5000")),
+        debug=os.getenv("FLASK_DEBUG", "0") == "1",
+    )
