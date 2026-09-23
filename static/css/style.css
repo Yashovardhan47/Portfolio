@@ -34,7 +34,7 @@ img { display: block; max-width: 100%; }
 .chapter-label { display: flex; gap: 14px; align-items: center; color: rgba(255,255,255,.64); }
 .chapter-label span { color: var(--accent); }
 
-.boot { position: fixed; inset: 0; z-index: 10000; display: grid; grid-template: 1fr auto auto / minmax(20px, 1fr) minmax(280px, 640px) minmax(20px, 1fr); align-items: end; padding-bottom: 8vh; background: #05070a; transition: clip-path 1s var(--ease), visibility 1s; clip-path: inset(0); }
+.boot { position: fixed; inset: 0; z-index: 10000; display: grid; grid-template: 1fr auto auto / minmax(20px, 1fr) minmax(280px, 640px) minmax(20px, 1fr); align-items: end; padding-bottom: 8vh; background: #05070a; transition: clip-path .55s var(--ease), visibility .55s; clip-path: inset(0); }
 .boot.is-done { clip-path: inset(0 0 100% 0); visibility: hidden; }
 .boot__mark { grid-column: 2; align-self: center; font: 600 clamp(5rem,18vw,13rem)/.7 var(--display); letter-spacing: -.08em; }
 .boot__mark span { display: inline-block; margin-left: 12px; color: var(--acid); font: 400 .65rem/1 var(--mono); vertical-align: top; letter-spacing: 0; }
