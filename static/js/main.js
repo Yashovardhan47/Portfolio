@@ -83,7 +83,7 @@
     const value = $("#boot-value");
     const track = $(".boot__track span");
     const started = performance.now();
-    const duration = 1450;
+    const duration = 800;
     const tick = now => {
       const progress = Math.min(1, (now - started) / duration);
       const eased = 1 - Math.pow(1 - progress, 3);
@@ -91,7 +91,7 @@
       value.textContent = amount;
       track.style.width = `${amount}%`;
       if (progress < 1) requestAnimationFrame(tick);
-      else setTimeout(() => { root.classList.add("is-done"); startCounters(); }, 180);
+      else setTimeout(() => { root.classList.add("is-done"); startCounters(); }, 60);
     };
     requestAnimationFrame(tick);
   }
