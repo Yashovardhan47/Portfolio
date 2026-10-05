@@ -21,10 +21,22 @@
 <body>
   <a class="skip-link" href="#intro">Skip to portfolio</a>
 
-  <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot__mark">KY<span>®</span></div>
-    <div class="boot__track"><span></span></div>
-    <p><span id="boot-value">0</span>% — assembling the evidence</p>
+  <div class="portal" id="portal" role="dialog" aria-modal="true" aria-labelledby="portal-title">
+    <div class="portal__sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="portal__orbit portal__orbit--one" aria-hidden="true"></div>
+    <div class="portal__orbit portal__orbit--two" aria-hidden="true"></div>
+    <div class="portal__core" aria-hidden="true"><span>KY</span></div>
+    <div class="portal__copy">
+      <p class="micro-label">A personal universe by K Yashovardhan</p>
+      <h1 id="portal-title"><span>Hello, I’m</span> Yashovardhan.</h1>
+      <p>Not a static résumé. A living presentation of my character, craft, work and direction.</p>
+      <div class="portal__actions">
+        <button class="portal__enter magnetic" id="portal-enter" type="button"><span>Enter my universe</span><i aria-hidden="true">✦</i></button>
+        <button class="portal__silent" id="portal-silent" type="button">Enter without voice</button>
+      </div>
+      <span class="portal__note">Voice begins after your click</span>
+    </div>
+    <div class="portal__frequency" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   </div>
 
   <div class="ambient" aria-hidden="true">
@@ -37,6 +49,7 @@
     <a class="wordmark magnetic" href="#intro" data-go="intro" aria-label="K Yashovardhan — introduction"><span>KY</span><i></i></a>
     <div class="topbar__status"><span class="pulse"></span><span class="status-wide">Available for the right opportunity</span><span class="status-short">Available</span></div>
     <div class="topbar__actions">
+      <button class="icon-button magnetic" id="voice-toggle" type="button" aria-label="Replay spoken introduction"><span class="voice-icon" aria-hidden="true"><i></i><i></i><i></i></span><span class="button-label">Voice</span></button>
       <button class="icon-button magnetic" id="motion-toggle" type="button" aria-label="Reduce motion" aria-pressed="false"><span class="motion-icon" aria-hidden="true"></span><span class="button-label">Motion</span></button>
       <button class="menu-trigger magnetic" id="menu-trigger" type="button" aria-expanded="false" aria-controls="menu-panel"><span>Menu</span><i></i><i></i></button>
     </div>
@@ -45,12 +58,12 @@
   <aside class="scene-rail" aria-label="Portfolio chapters">
     <div class="scene-rail__meter"><span id="scene-meter"></span></div>
     <ol>
-      <li><button data-go="intro"><span>01</span><b>Opening</b></button></li>
-      <li><button data-go="profile"><span>02</span><b>Profile</b></button></li>
-      <li><button data-go="capabilities"><span>03</span><b>System</b></button></li>
-      <li><button data-go="work"><span>04</span><b>Evidence</b></button></li>
-      <li><button data-go="journey"><span>05</span><b>Journey</b></button></li>
-      <li><button data-go="contact"><span>06</span><b>Contact</b></button></li>
+      <li><button data-go="intro"><span>01</span><b>Identity</b></button></li>
+      <li><button data-go="profile"><span>02</span><b>Character</b></button></li>
+      <li><button data-go="capabilities"><span>03</span><b>Craft</b></button></li>
+      <li><button data-go="work"><span>04</span><b>Proof</b></button></li>
+      <li><button data-go="journey"><span>05</span><b>Evolution</b></button></li>
+      <li><button data-go="contact"><span>06</span><b>Connection</b></button></li>
     </ol>
   </aside>
 
@@ -61,12 +74,12 @@
     <div class="menu-panel__inner">
       <p class="micro-label">Choose a chapter</p>
       <ol class="menu-panel__links">
-        <li><button data-go="intro"><span>01</span>Opening statement<small>Start the story</small></button></li>
-        <li><button data-go="profile"><span>02</span>Design philosophy<small>How I think</small></button></li>
-        <li><button data-go="capabilities"><span>03</span>Capability system<small>What I use</small></button></li>
-        <li><button data-go="work"><span>04</span>Project evidence<small>What I shipped</small></button></li>
-        <li><button data-go="journey"><span>05</span>Signal trail<small>How I grew</small></button></li>
-        <li><button data-go="contact"><span>06</span>Start a conversation<small>What comes next</small></button></li>
+        <li><button data-go="intro"><span>01</span>Identity<small>Meet the person</small></button></li>
+        <li><button data-go="profile"><span>02</span>Character<small>How I operate</small></button></li>
+        <li><button data-go="capabilities"><span>03</span>Craft<small>What I use</small></button></li>
+        <li><button data-go="work"><span>04</span>Proof<small>What I built</small></button></li>
+        <li><button data-go="journey"><span>05</span>Evolution<small>How I grew</small></button></li>
+        <li><button data-go="contact"><span>06</span>Connection<small>What comes next</small></button></li>
       </ol>
       <div class="menu-panel__footer">
         <a href="https://github.com/Yashovardhan47" target="_blank" rel="noopener">GitHub ↗</a>
@@ -77,15 +90,15 @@
   </nav>
 
   <main class="story" id="main-content">
-    <section class="scene scene--intro is-active" id="intro" data-scene="01" data-tone="acid">
+    <section class="scene scene--intro is-active" id="intro" data-scene="01" data-tone="acid" tabindex="-1">
       <div class="scene__orb orb--one" aria-hidden="true"></div><div class="scene__orb orb--two" aria-hidden="true"></div>
       <div class="scene__inner intro-layout">
         <div class="intro-copy" data-reveal-group>
-          <p class="chapter-label"><span>01</span> Opening statement / 2026</p>
-          <h1 class="display-title" aria-label="I turn uncertainty into useful systems.">
-            <span class="title-line">I turn</span><span class="title-line title-line--outline">uncertainty</span><span class="title-line title-line--offset">into <em>useful systems.</em></span>
+          <p class="chapter-label"><span>01</span> Identity / inside my universe</p>
+          <h1 class="display-title" aria-label="Curious by nature. Driven by purpose.">
+            <span class="title-line">Curious</span><span class="title-line title-line--outline">by nature.</span><span class="title-line title-line--offset">Driven <em>by purpose.</em></span>
           </h1>
-          <p class="intro-deck">Data scientist + Python full-stack developer building explainable AI products from the first hypothesis to the final interaction.</p>
+          <p class="intro-deck">I’m Yashovardhan—an ambitious CSE–Data Science student who turns deep thought into useful systems, and ideas into complete products.</p>
           <div class="intro-actions">
             <button class="action-pill magnetic" type="button" data-go="work"><span>Enter selected work</span><i>↘</i></button>
             <button class="text-action" type="button" data-open-command>Explore with commands <kbd>⌘K</kbd></button>
@@ -98,8 +111,8 @@
             <div class="portrait-card__image"><img src="https://avatars.githubusercontent.com/u/192561011?v=4" alt="K Yashovardhan" width="460" height="560"><div class="portrait-card__scan" aria-hidden="true"></div></div>
             <div class="portrait-card__caption"><span>K Yashovardhan</span><span>Andhra Pradesh / India</span></div>
           </div>
-          <div class="floating-note floating-note--role"><span>Current mode</span><strong id="role-cycle">Data scientist</strong></div>
-          <div class="floating-note floating-note--build"><span>Build principle</span><strong>Evidence &gt; claims</strong></div>
+          <div class="floating-note floating-note--role"><span>Professional mode</span><strong id="role-cycle">Data scientist</strong></div>
+          <div class="floating-note floating-note--build"><span>Personal code</span><strong>Persist. Learn. Build.</strong></div>
           <button class="stage-hotspot magnetic" type="button" data-open-assistant aria-label="Ask the portfolio assistant"><span>Ask<br>portfolio</span></button>
         </div>
 
@@ -113,14 +126,15 @@
     <section class="scene scene--profile" id="profile" data-scene="02" data-tone="coral">
       <div class="scene__inner profile-layout">
         <div class="profile-heading" data-reveal-group>
-          <p class="chapter-label"><span>02</span> Design philosophy</p>
-          <h2 class="scene-title">I don’t stop at<br><em>“the model works.”</em></h2>
-          <p>I connect analysis, engineering and interface design so a strong technical idea can survive contact with a real user.</p>
+          <p class="chapter-label"><span>02</span> Character constellation</p>
+          <h2 class="scene-title">The person<br><em>behind the projects.</em></h2>
+          <p>My work reflects how I live: ambitious in direction, persistent through friction, organized in execution and reflective before action.</p>
         </div>
         <div class="principle-deck" id="principle-deck">
-          <article class="principle-card is-active" data-principle="0"><div class="principle-card__index">01 / 03</div><div class="principle-card__graphic graphic--question" aria-hidden="true"><i></i><i></i><i></i><b>?</b></div><div><p class="micro-label">Frame it</p><h3>Begin with the decision.</h3><p>I translate a broad ask into a measurable question, named constraints and an honest definition of success.</p></div></article>
-          <article class="principle-card" data-principle="1"><div class="principle-card__index">02 / 03</div><div class="principle-card__graphic graphic--graph" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><p class="micro-label">Prove it</p><h3>Make reasoning inspectable.</h3><p>Typed graphs, deterministic workflows, audit events and reproducible analysis turn outputs into evidence.</p></div></article>
-          <article class="principle-card" data-principle="2"><div class="principle-card__index">03 / 03</div><div class="principle-card__graphic graphic--ship" aria-hidden="true"><i></i><i></i><i></i><b>↗</b></div><div><p class="micro-label">Ship it</p><h3>Design the last mile.</h3><p>Secure APIs, clear states, accessible interactions and production checks are part of the product—not polish added later.</p></div></article>
+          <article class="principle-card is-active" data-principle="0"><div class="principle-card__index">01 / 04</div><div class="principle-card__graphic graphic--question" aria-hidden="true"><i></i><i></i><i></i><b>↗</b></div><div><p class="micro-label">Ambitious</p><h3>I choose meaningful targets.</h3><p>I am motivated by work that stretches me—research-worthy systems, complete products and a long-term path toward entrepreneurship.</p></div></article>
+          <article class="principle-card" data-principle="1"><div class="principle-card__index">02 / 04</div><div class="principle-card__graphic graphic--graph" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><p class="micro-label">Persistent</p><h3>I stay with hard problems.</h3><p>When code fails or an idea is incomplete, I investigate, rebuild and keep moving until the result becomes useful—not merely finished.</p></div></article>
+          <article class="principle-card" data-principle="2"><div class="principle-card__index">03 / 04</div><div class="principle-card__graphic graphic--ship" aria-hidden="true"><i></i><i></i><i></i><b>✓</b></div><div><p class="micro-label">Organized + punctual</p><h3>I respect structure and time.</h3><p>I break complex goals into clear milestones, protect commitments and prefer steady progress over last-minute intensity.</p></div></article>
+          <article class="principle-card" data-principle="3"><div class="principle-card__index">04 / 04</div><div class="principle-card__graphic graphic--reflect" aria-hidden="true"><i></i><i></i><i></i><b>∞</b></div><div><p class="micro-label">Reflective</p><h3>Solitude sharpens my thinking.</h3><p>Cricket keeps me competitive, web exploration keeps me curious, and quiet reflection helps me connect ideas before I act.</p></div></article>
           <div class="principle-controls" aria-label="Design principle controls"><button type="button" id="principle-prev" aria-label="Previous principle">←</button><div><span id="principle-progress"></span></div><button type="button" id="principle-next" aria-label="Next principle">→</button></div>
         </div>
         <div class="profile-marquee" aria-hidden="true"><div><span>DATA SCIENCE</span><i>✦</i><span>FULL STACK</span><i>✦</i><span>VERIFIED AI</span><i>✦</i><span>PRODUCT THINKING</span><i>✦</i></div><div><span>DATA SCIENCE</span><i>✦</i><span>FULL STACK</span><i>✦</i><span>VERIFIED AI</span><i>✦</i><span>PRODUCT THINKING</span><i>✦</i></div></div>
@@ -129,7 +143,7 @@
 
     <section class="scene scene--capabilities" id="capabilities" data-scene="03" data-tone="violet">
       <div class="scene__inner capability-layout">
-        <header class="capability-heading" data-reveal-group><p class="chapter-label"><span>03</span> Capability system</p><h2 class="scene-title">One builder.<br><em>Four connected modes.</em></h2><p>Select a mode to inspect the tools and contribution profile.</p></header>
+        <header class="capability-heading" data-reveal-group><p class="chapter-label"><span>03</span> Craft in motion</p><h2 class="scene-title">One mind.<br><em>Four connected modes.</em></h2><p>Choose a mode to see how I move from language and data to product and delivery.</p></header>
         <div class="capability-console">
           <div class="mode-tabs" role="tablist" aria-label="Capability modes">
             <button class="is-active" type="button" role="tab" aria-selected="true" data-mode="language"><span>01</span>Languages</button><button type="button" role="tab" aria-selected="false" data-mode="ai"><span>02</span>AI + data</button><button type="button" role="tab" aria-selected="false" data-mode="stack"><span>03</span>Full stack</button><button type="button" role="tab" aria-selected="false" data-mode="delivery"><span>04</span>Delivery</button>
@@ -147,7 +161,7 @@
 
     <section class="scene scene--work" id="work" data-scene="04" data-tone="cyan">
       <div class="scene__inner work-layout">
-        <header class="work-heading" data-reveal-group><p class="chapter-label"><span>04</span> Selected evidence</p><h2 class="scene-title">Six systems.<br><em>One standard: complete.</em></h2><p>Switch projects to inspect the problem, architecture and engineering proof.</p></header>
+        <header class="work-heading" data-reveal-group><p class="chapter-label"><span>04</span> Proof of character</p><h2 class="scene-title">Ideas become real<br><em>when I build them.</em></h2><p>Each project represents a different curiosity—and the persistence to turn it into a working system.</p></header>
         <div class="project-browser">
           <div class="project-list" role="tablist" aria-label="Project case studies"><button class="is-active" type="button" role="tab" aria-selected="true" data-project="0"><span>01</span><b>BillFlow AI</b><small>AI finance</small></button><button type="button" role="tab" aria-selected="false" data-project="1"><span>02</span><b>OmniCalc + CalcGraph</b><small>Verified AI</small></button><button type="button" role="tab" aria-selected="false" data-project="2"><span>03</span><b>Quick Hire</b><small>Recruitment</small></button><button type="button" role="tab" aria-selected="false" data-project="3"><span>04</span><b>BloomSense</b><small>Computer vision</small></button><button type="button" role="tab" aria-selected="false" data-project="4"><span>05</span><b>Mental Health</b><small>Data science</small></button><button type="button" role="tab" aria-selected="false" data-project="5"><span>06</span><b>Flower Vision</b><small>ML delivery</small></button></div>
           <article class="project-stage" id="project-stage" aria-live="polite">
@@ -160,7 +174,7 @@
 
     <section class="scene scene--journey" id="journey" data-scene="05" data-tone="amber">
       <div class="scene__inner journey-layout">
-        <header class="journey-heading" data-reveal-group><p class="chapter-label"><span>05</span> Signal trail</p><h2 class="scene-title">Learning by<br><em>building in public.</em></h2><p>A compact timeline of the experiences behind the work.</p></header>
+        <header class="journey-heading" data-reveal-group><p class="chapter-label"><span>05</span> Personal evolution</p><h2 class="scene-title">Still learning.<br><em>Always becoming.</em></h2><p>My direction is not a straight line—it is a growing trail of study, experiments, evidence and larger ambitions.</p></header>
         <div class="timeline" id="timeline"><div class="timeline__line"><span id="timeline-progress"></span></div><button class="timeline-item is-active" type="button" data-year="2023" data-detail="Started B.Tech in Computer Science — Data Science at Mohan Babu University."><span>2023</span><b>Foundation</b><small>Data science degree begins</small><i></i></button><button class="timeline-item" type="button" data-year="2024" data-detail="Moved from notebooks into complete browser-facing projects with Flask, databases and REST APIs."><span>2024</span><b>From model to product</b><small>Full-stack delivery</small><i></i></button><button class="timeline-item" type="button" data-year="2025" data-detail="Completed Deloitte’s Data Analytics Job Simulation: Python preparation, Tableau dashboards and a pay-equality investigation."><span>2025</span><b>Business evidence</b><small>Deloitte simulation</small><i></i></button><button class="timeline-item" type="button" data-year="2026" data-detail="Building verified AI systems with deterministic execution, explainability, secure authentication and production checks."><span>2026</span><b>Verified intelligence</b><small>AI systems mature</small><i></i></button><button class="timeline-item" type="button" data-year="2027" data-detail="Graduation target — ready to bring a data-first, product-complete mindset to an ambitious engineering team."><span>2027</span><b>Next chapter</b><small>Graduation target</small><i></i></button></div>
         <div class="timeline-readout"><span id="timeline-year">2023</span><p id="timeline-detail">Started B.Tech in Computer Science — Data Science at Mohan Babu University.</p><a id="certificate-link" href="https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_fa47FeoPhJofBMnoN_1753769462531_completion_certificate.pdf" target="_blank" rel="noopener">View Deloitte certificate ↗</a></div>
         <div class="credential-strip"><span>Also certified</span><div><b>Infosys</b> Python stack</div><div><b>Udemy</b> Python + Java</div><div><b>L&amp;T</b> Data visualization</div></div>
@@ -169,9 +183,9 @@
 
     <section class="scene scene--contact" id="contact" data-scene="06" data-tone="pink">
       <div class="scene__inner contact-layout">
-        <div class="contact-copy" data-reveal-group><p class="chapter-label"><span>06</span> Start a conversation</p><h2 class="contact-title">Have a hard problem?<br><em>Let’s make it move.</em></h2><p>I’m open to internships, entry-level roles and thoughtful collaborations across data, AI and full-stack engineering.</p><div class="contact-links"><a href="https://www.linkedin.com/in/yashovardhank47" target="_blank" rel="noopener"><span>LinkedIn</span><i>Connect ↗</i></a><a href="https://github.com/Yashovardhan47" target="_blank" rel="noopener"><span>GitHub</span><i>Inspect ↗</i></a><a href="https://leetcode.com/u/Yashovardhan3547/" target="_blank" rel="noopener"><span>LeetCode</span><i>Review ↗</i></a></div></div>
+        <div class="contact-copy" data-reveal-group><p class="chapter-label"><span>06</span> Connection</p><h2 class="contact-title">You’ve seen my universe.<br><em>Let’s build the next one.</em></h2><p>I’m open to internships, entry-level roles and thoughtful collaborations where curiosity, responsibility and complete execution matter.</p><div class="contact-links"><a href="https://www.linkedin.com/in/yashovardhank47" target="_blank" rel="noopener"><span>LinkedIn</span><i>Connect ↗</i></a><a href="https://github.com/Yashovardhan47" target="_blank" rel="noopener"><span>GitHub</span><i>Inspect ↗</i></a><a href="https://leetcode.com/u/Yashovardhan3547/" target="_blank" rel="noopener"><span>LeetCode</span><i>Review ↗</i></a></div></div>
         <form class="contact-form" id="contact-form" novalidate><div class="form-intents"><span>Conversation starter</span><button type="button" data-intent="I would like to discuss an internship opportunity with you.">Internship</button><button type="button" data-intent="I would like to discuss an entry-level engineering role with you.">Full-time role</button><button type="button" data-intent="I have a project collaboration idea I would like to explore with you.">Collaboration</button></div><label><span>Your name</span><input name="name" type="text" autocomplete="name" required placeholder="What should I call you?"></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required placeholder="you@company.com"></label><label><span>Message</span><textarea name="message" rows="4" required placeholder="Tell me about the opportunity or problem..."></textarea></label><input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="send-button magnetic" type="submit"><span>Send the signal</span><i>↗</i><b aria-hidden="true"></b></button><p class="form-status" id="form-status" aria-live="polite"></p></form>
-        <footer class="closing"><span>Designed to be explored, not skimmed.</span><span>© 2026 K Yashovardhan</span><button type="button" data-go="intro">Replay from top ↑</button></footer>
+        <footer class="closing"><span>Curious by nature. Driven by purpose.</span><span>© 2026 K Yashovardhan</span><button type="button" id="replay-universe">Replay the universe</button></footer>
       </div>
     </section>
   </main>
