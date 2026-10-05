@@ -69,7 +69,7 @@
     delivery: { code: "MODE / 04", title: "Data + Delivery", score: 84, description: "The reliability layer: durable stores, containers, version control and automated checks that make the result repeatable.", tools: ["PostgreSQL", "MySQL", "SQLite", "Docker", "Git", "GitHub Actions"], values: [58, 80, 72, 86, 94], log: "Schema checked → container built → CI green. Ready to ship." }
   };
 
-  const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches };
+  const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches, portalPointTimer: null };
   const scenes = $$(".scene");
 
   function speakIntroduction() {
@@ -94,22 +94,35 @@
   function enterUniverse(withVoice = true) {
     const portal = $("#portal");
     if (!portal || portal.classList.contains("is-entering")) return;
-    portal.classList.add("is-entering");
-    if (withVoice) speakIntroduction();
-    startCounters();
-    setTimeout(() => portal.classList.add("is-done"), state.motion ? 170 : 0);
-    setTimeout(() => {
-      document.body.classList.remove("awaiting-entry");
-      $("#intro").focus({ preventScroll: true });
-    }, state.motion ? 1500 : 40);
+    clearTimeout(state.portalPointTimer);
+    portal.classList.remove("is-pointing");
+
+    const completeEntrance = () => {
+      portal.classList.remove("is-speaking");
+      portal.classList.add("is-entering");
+      startCounters();
+      setTimeout(() => portal.classList.add("is-done"), state.motion ? 170 : 0);
+      setTimeout(() => {
+        document.body.classList.remove("awaiting-entry");
+        $("#intro").focus({ preventScroll: true });
+      }, state.motion ? 1500 : 40);
+    };
+
+    if (!withVoice) { completeEntrance(); return; }
+    portal.classList.add("is-speaking");
+    speakIntroduction();
+    state.portalPointTimer = setTimeout(() => portal.classList.add("is-pointing"), state.motion ? 1350 : 100);
+    setTimeout(completeEntrance, state.motion ? 3400 : 2700);
   }
 
   function replayUniverse() {
     window.speechSynthesis?.cancel();
     goTo("intro");
     const portal = $("#portal");
-    portal.classList.remove("is-done", "is-entering");
+    portal.classList.remove("is-done", "is-entering", "is-speaking", "is-pointing");
     document.body.classList.add("awaiting-entry");
+    clearTimeout(state.portalPointTimer);
+    state.portalPointTimer = setTimeout(() => portal.classList.add("is-pointing"), state.motion ? 1800 : 100);
     setTimeout(() => $("#portal-enter").focus(), 120);
   }
 
@@ -117,9 +130,10 @@
     document.body.classList.add("awaiting-entry");
     $("#portal-enter").addEventListener("click", () => enterUniverse(true));
     $("#portal-silent").addEventListener("click", () => enterUniverse(false));
-    $("#voice-toggle").addEventListener("click", speakIntroduction);
+    $("#voice-toggle").addEventListener("click", () => speakIntroduction());
     $("#replay-universe").addEventListener("click", replayUniverse);
     addEventListener("pagehide", () => window.speechSynthesis?.cancel());
+    state.portalPointTimer = setTimeout(() => $("#portal").classList.add("is-pointing"), state.motion ? 1800 : 100);
     setTimeout(() => $("#portal-enter").focus(), 120);
   }
 
