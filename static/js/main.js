@@ -69,8 +69,61 @@
     delivery: { code: "MODE / 04", title: "Data + Delivery", score: 84, description: "The reliability layer: durable stores, containers, version control and automated checks that make the result repeatable.", tools: ["PostgreSQL", "MySQL", "SQLite", "Docker", "Git", "GitHub Actions"], values: [58, 80, 72, 86, 94], log: "Schema checked → container built → CI green. Ready to ship." }
   };
 
-  const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches, portalPointTimer: null };
+  const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches, guideTimers: [], guidePulse: null };
   const scenes = $$(".scene");
+
+  function clearGuideTimeline() {
+    state.guideTimers.forEach(timer => clearTimeout(timer));
+    state.guideTimers = [];
+    if (state.guidePulse) clearInterval(state.guidePulse);
+    state.guidePulse = null;
+  }
+
+  function setGuideFrame(frame) {
+    const portal = $("#portal");
+    if (!portal) return;
+    portal.dataset.guideFrame = frame;
+    portal.classList.toggle("is-pointing", frame === "point");
+  }
+
+  function queueGuideFrame(frame, delay) {
+    state.guideTimers.push(setTimeout(() => setGuideFrame(frame), delay));
+  }
+
+  function runGuideArrival(restartMotion = false) {
+    const portal = $("#portal");
+    const guide = $(".portal__guide", portal);
+    clearGuideTimeline();
+    portal.classList.remove("is-speaking", "is-pointing");
+    if (restartMotion && guide) {
+      guide.style.animation = "none";
+      void guide.offsetWidth;
+      guide.style.animation = "";
+    }
+    if (!state.motion) { setGuideFrame("point"); return; }
+    [
+      ["walk-a", 0], ["walk-b", 300], ["walk-a", 610], ["walk-b", 930],
+      ["turn", 1270], ["wave-a", 1610], ["wave-b", 1880],
+      ["wave-a", 2160], ["wave-b", 2410], ["point", 2760]
+    ].forEach(([frame, delay]) => queueGuideFrame(frame, delay));
+  }
+
+  function runGuideGreeting() {
+    const portal = $("#portal");
+    clearGuideTimeline();
+    portal.classList.add("is-speaking");
+    let alternate = false;
+    setGuideFrame("wave-a");
+    state.guidePulse = setInterval(() => {
+      alternate = !alternate;
+      setGuideFrame(alternate ? "wave-b" : "wave-a");
+    }, state.motion ? 240 : 600);
+    state.guideTimers.push(setTimeout(() => {
+      if (state.guidePulse) clearInterval(state.guidePulse);
+      state.guidePulse = null;
+      setGuideFrame("point");
+    }, state.motion ? 1550 : 100));
+  }
 
   function speakIntroduction() {
     const button = $("#voice-toggle");
@@ -94,10 +147,10 @@
   function enterUniverse(withVoice = true) {
     const portal = $("#portal");
     if (!portal || portal.classList.contains("is-entering")) return;
-    clearTimeout(state.portalPointTimer);
-    portal.classList.remove("is-pointing");
+    clearGuideTimeline();
 
     const completeEntrance = () => {
+      clearGuideTimeline();
       portal.classList.remove("is-speaking");
       portal.classList.add("is-entering");
       startCounters();
@@ -109,9 +162,8 @@
     };
 
     if (!withVoice) { completeEntrance(); return; }
-    portal.classList.add("is-speaking");
+    runGuideGreeting();
     speakIntroduction();
-    state.portalPointTimer = setTimeout(() => portal.classList.add("is-pointing"), state.motion ? 1350 : 100);
     setTimeout(completeEntrance, state.motion ? 3400 : 2700);
   }
 
@@ -121,8 +173,7 @@
     const portal = $("#portal");
     portal.classList.remove("is-done", "is-entering", "is-speaking", "is-pointing");
     document.body.classList.add("awaiting-entry");
-    clearTimeout(state.portalPointTimer);
-    state.portalPointTimer = setTimeout(() => portal.classList.add("is-pointing"), state.motion ? 1800 : 100);
+    runGuideArrival(true);
     setTimeout(() => $("#portal-enter").focus(), 120);
   }
 
@@ -132,8 +183,8 @@
     $("#portal-silent").addEventListener("click", () => enterUniverse(false));
     $("#voice-toggle").addEventListener("click", () => speakIntroduction());
     $("#replay-universe").addEventListener("click", replayUniverse);
-    addEventListener("pagehide", () => window.speechSynthesis?.cancel());
-    state.portalPointTimer = setTimeout(() => $("#portal").classList.add("is-pointing"), state.motion ? 1800 : 100);
+    addEventListener("pagehide", () => { window.speechSynthesis?.cancel(); clearGuideTimeline(); });
+    runGuideArrival();
     setTimeout(() => $("#portal-enter").focus(), 120);
   }
 
