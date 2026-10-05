@@ -72,28 +72,55 @@
   const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches };
   const scenes = $$(".scene");
 
-  function boot() {
-    const root = $("#boot");
-    if (!root) return;
-    if (prefersReduced.matches) {
-      root.classList.add("is-done");
-      startCounters();
+  function speakIntroduction() {
+    const button = $("#voice-toggle");
+    if (!("speechSynthesis" in window)) {
+      toast("Voice introduction is not supported in this browser");
       return;
     }
-    const value = $("#boot-value");
-    const track = $(".boot__track span");
-    const started = performance.now();
-    const duration = 800;
-    const tick = now => {
-      const progress = Math.min(1, (now - started) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const amount = Math.round(eased * 100);
-      value.textContent = amount;
-      track.style.width = `${amount}%`;
-      if (progress < 1) requestAnimationFrame(tick);
-      else setTimeout(() => { root.classList.add("is-done"); startCounters(); }, 60);
-    };
-    requestAnimationFrame(tick);
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance("Hello, I'm Yashovardhan. Explore my universe.");
+    const voices = speechSynthesis.getVoices();
+    utterance.voice = voices.find(voice => voice.lang.toLowerCase() === "en-in") || voices.find(voice => voice.lang.toLowerCase().startsWith("en")) || null;
+    utterance.lang = "en-IN";
+    utterance.rate = .88;
+    utterance.pitch = .96;
+    utterance.volume = 1;
+    utterance.onstart = () => button.classList.add("is-speaking");
+    utterance.onend = utterance.onerror = () => button.classList.remove("is-speaking");
+    speechSynthesis.speak(utterance);
+  }
+
+  function enterUniverse(withVoice = true) {
+    const portal = $("#portal");
+    if (!portal || portal.classList.contains("is-entering")) return;
+    portal.classList.add("is-entering");
+    if (withVoice) speakIntroduction();
+    startCounters();
+    setTimeout(() => portal.classList.add("is-done"), state.motion ? 170 : 0);
+    setTimeout(() => {
+      document.body.classList.remove("awaiting-entry");
+      $("#intro").focus({ preventScroll: true });
+    }, state.motion ? 1500 : 40);
+  }
+
+  function replayUniverse() {
+    window.speechSynthesis?.cancel();
+    goTo("intro");
+    const portal = $("#portal");
+    portal.classList.remove("is-done", "is-entering");
+    document.body.classList.add("awaiting-entry");
+    setTimeout(() => $("#portal-enter").focus(), 120);
+  }
+
+  function setupPortal() {
+    document.body.classList.add("awaiting-entry");
+    $("#portal-enter").addEventListener("click", () => enterUniverse(true));
+    $("#portal-silent").addEventListener("click", () => enterUniverse(false));
+    $("#voice-toggle").addEventListener("click", speakIntroduction);
+    $("#replay-universe").addEventListener("click", replayUniverse);
+    addEventListener("pagehide", () => window.speechSynthesis?.cancel());
+    setTimeout(() => $("#portal-enter").focus(), 120);
   }
 
   function goTo(id) {
@@ -386,7 +413,7 @@
   function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
   document.addEventListener("DOMContentLoaded", () => {
-    setupMotion(); setupNavigation(); setupMenu(); setupSceneObserver(); setupPointerEffects(); setupRoleCycle(); setupPrinciples(); setupCapabilities(); setupProjects(); setupTimeline(); setupCommand(); setupAssistant(); setupContact(); boot();
+    setupMotion(); setupPortal(); setupNavigation(); setupMenu(); setupSceneObserver(); setupPointerEffects(); setupRoleCycle(); setupPrinciples(); setupCapabilities(); setupProjects(); setupTimeline(); setupCommand(); setupAssistant(); setupContact();
     updateScene(0);
   });
 })();
