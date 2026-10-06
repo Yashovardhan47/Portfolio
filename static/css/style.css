@@ -56,11 +56,14 @@ img { display: block; max-width: 100%; }
 .portal__orbit--one { width:min(74vw,880px); aspect-ratio:1; animation:portalOrbit 26s linear infinite; }
 .portal__orbit--two { width:min(48vw,570px); aspect-ratio:1; border-style:dashed; animation:portalOrbit 18s linear infinite reverse; }
 @keyframes portalOrbit { from{transform:translate(-50%,-50%) rotate(0)} to{transform:translate(-50%,-50%) rotate(360deg)} }
-.portal__guide { position:absolute; z-index:3; left:clamp(12px,2vw,36px); bottom:-8vh; width:min(36vw,520px); height:98vh; opacity:0; perspective:1200px; pointer-events:none; transform:translateX(-128%) scale(.97); animation:guideWalkIn 1.55s .12s cubic-bezier(.35,.02,.18,1) forwards; filter:drop-shadow(0 32px 50px rgba(0,0,0,.45)); }
+.portal__guide { position:absolute; z-index:3; left:clamp(12px,2vw,36px); bottom:-8vh; width:min(36vw,520px); height:98vh; opacity:0; perspective:1200px; pointer-events:none; transform:translateX(-128%) scale(.97); animation:guideWalkIn 3.3s .12s cubic-bezier(.35,.02,.18,1) forwards; filter:drop-shadow(0 32px 50px rgba(0,0,0,.45)); }
 @keyframes guideWalkIn { 0%{opacity:0;transform:translateX(-128%) scale(.97)} 10%{opacity:1} 28%{transform:translateX(-88%) translateY(-5px) scale(.98)} 52%{transform:translateX(-53%) translateY(2px) scale(.99)} 76%{transform:translateX(-19%) translateY(-4px)} 92%{transform:translateX(2%) translateY(1px)} 100%{opacity:1;transform:translateX(0) translateY(0) scale(1)} }
 .guide-performance { position:absolute; inset:0; transform-origin:50% 86%; }
+.guide-canvas { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center bottom; opacity:0; transition:opacity .18s linear; }
 .guide-frame { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center bottom; opacity:0; transition:opacity .045s linear; will-change:opacity; }
-.portal[data-guide-frame="walk-a"] .guide-frame--walk-a,.portal[data-guide-frame="walk-b"] .guide-frame--walk-b,.portal[data-guide-frame="turn"] .guide-frame--turn,.portal[data-guide-frame="wave-a"] .guide-frame--wave-a,.portal[data-guide-frame="wave-b"] .guide-frame--wave-b,.portal[data-guide-frame="point"] .guide-frame--point { opacity:1; }
+.portal.is-canvas-ready .guide-canvas { opacity:1; }
+.portal.is-canvas-ready .guide-frame { opacity:0!important; }
+.portal[data-guide-frame="walk-a"] .guide-frame--walk-a,.portal[data-guide-frame="walk-b"] .guide-frame--walk-b,.portal[data-guide-frame="walk-c"] .guide-frame--walk-c,.portal[data-guide-frame="walk-d"] .guide-frame--walk-d,.portal[data-guide-frame="turn-a"] .guide-frame--turn-a,.portal[data-guide-frame="turn-b"] .guide-frame--turn-b,.portal[data-guide-frame="turn"] .guide-frame--turn,.portal[data-guide-frame="wave-a"] .guide-frame--wave-a,.portal[data-guide-frame="wave-b"] .guide-frame--wave-b,.portal[data-guide-frame="hi-h"] .guide-frame--hi-h,.portal[data-guide-frame="hi-ee"] .guide-frame--hi-ee,.portal[data-guide-frame="exp-eh"] .guide-frame--exp-eh,.portal[data-guide-frame="exp-p"] .guide-frame--exp-p,.portal[data-guide-frame="exp-lore"] .guide-frame--exp-lore,.portal[data-guide-frame="my-m"] .guide-frame--my-m,.portal[data-guide-frame="my-eye"] .guide-frame--my-eye,.portal[data-guide-frame="uni-u"] .guide-frame--uni-u,.portal[data-guide-frame="uni-nee"] .guide-frame--uni-nee,.portal[data-guide-frame="uni-verse"] .guide-frame--uni-verse,.portal[data-guide-frame="point"] .guide-frame--point { opacity:1; }
 .portal[data-guide-frame^="walk"] .guide-performance { animation:guideFootfall .32s ease-in-out infinite alternate; }
 .portal[data-guide-frame^="wave"] .guide-performance { animation:guideAlive 1.4s ease-in-out infinite; }
 @keyframes guideFootfall { to{transform:translateY(-5px) rotate(.25deg)} }
@@ -71,8 +74,8 @@ img { display: block; max-width: 100%; }
 .portal__speech:after { content:""; position:absolute; left:-1px; bottom:-8px; width:12px; height:12px; border-left:1px solid rgba(202,255,63,.45); background:rgba(7,10,8,.78); clip-path:polygon(0 0,100% 0,0 100%); }
 @keyframes speechIn { to{opacity:1;transform:none} }
 .speech-explore { display:none; white-space:nowrap; }
-.portal[data-guide-frame="point"] .speech-hi { display:none; }
-.portal[data-guide-frame="point"] .speech-explore { display:block; }
+.portal[data-guide-frame^="exp"] .speech-hi,.portal[data-guide-frame^="my"] .speech-hi,.portal[data-guide-frame^="uni"] .speech-hi,.portal[data-guide-frame="point"] .speech-hi { display:none; }
+.portal[data-guide-frame^="exp"] .speech-explore,.portal[data-guide-frame^="my"] .speech-explore,.portal[data-guide-frame^="uni"] .speech-explore,.portal[data-guide-frame="point"] .speech-explore { display:block; }
 .portal.is-speaking .portal__speech { box-shadow:0 0 28px rgba(202,255,63,.16); }
 .portal__core { position:absolute; left:50%; top:50%; display:grid; place-items:center; width:min(31vw,330px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(202,255,63,.2),rgba(202,255,63,.035) 55%,transparent 70%); transform:translate(-50%,-50%); box-shadow:0 0 110px rgba(202,255,63,.12); transition:transform 1.15s var(--ease),opacity .8s; }
 .portal__core:before,.portal__core:after { content:""; position:absolute; inset:18%; border:1px solid rgba(202,255,63,.24); border-radius:50%; animation:breathe 3.2s ease-in-out infinite; }

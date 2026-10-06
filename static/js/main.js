@@ -69,21 +69,119 @@
     delivery: { code: "MODE / 04", title: "Data + Delivery", score: 84, description: "The reliability layer: durable stores, containers, version control and automated checks that make the result repeatable.", tools: ["PostgreSQL", "MySQL", "SQLite", "Docker", "Git", "GitHub Actions"], values: [58, 80, 72, 86, 94], log: "Schema checked → container built → CI green. Ready to ship." }
   };
 
-  const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches, guideTimers: [], guidePulse: null };
+  const state = { scene: 0, principle: 0, project: 0, commandIndex: 0, motion: !prefersReduced.matches, guideTimers: [], guidePulse: null, guideAnimation: null };
   const scenes = $$(".scene");
+  const guideRenderer = { canvas: null, context: null, images: new Map(), ready: false };
+  const arrivalSequence = [
+    [0, "walk-a"], [.07, "walk-c"], [.14, "walk-b"], [.21, "walk-d"],
+    [.28, "walk-a"], [.35, "walk-c"], [.42, "walk-b"], [.49, "walk-d"],
+    [.56, "turn-a"], [.63, "turn-b"], [.70, "turn"],
+    [.78, "wave-a"], [.84, "wave-b"], [.90, "wave-a"], [.96, "point"], [1, "point"]
+  ];
+  const greetingSequence = [
+    [0, "hi-h"], [.05, "hi-ee"], [.11, "wave-b"],
+    [.18, "exp-eh"], [.25, "exp-p"], [.34, "exp-lore"],
+    [.47, "my-m"], [.53, "my-eye"], [.62, "uni-u"],
+    [.70, "uni-nee"], [.82, "uni-verse"], [.92, "point"], [1, "point"]
+  ];
+
+  function setGuideState(frame) {
+    const portal = $("#portal");
+    if (!portal) return;
+    portal.dataset.guideFrame = frame;
+    portal.classList.toggle("is-pointing", frame === "point");
+  }
+
+  function drawGuideFrame(frame) {
+    if (!guideRenderer.ready) return;
+    const image = guideRenderer.images.get(frame);
+    if (!image) return;
+    const { canvas, context } = guideRenderer;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.globalAlpha = 1;
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  }
+
+  function drawGuideBlend(fromFrame, toFrame, amount) {
+    if (!guideRenderer.ready) return;
+    const from = guideRenderer.images.get(fromFrame);
+    const to = guideRenderer.images.get(toFrame);
+    if (!from || !to) { drawGuideFrame(toFrame || fromFrame); return; }
+    const { canvas, context } = guideRenderer;
+    const mix = amount * amount * (3 - 2 * amount);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.globalAlpha = 1 - mix;
+    context.drawImage(from, 0, 0, canvas.width, canvas.height);
+    context.globalAlpha = mix;
+    context.drawImage(to, 0, 0, canvas.width, canvas.height);
+    context.globalAlpha = 1;
+  }
+
+  function renderGuideSequence(sequence, duration, totalFrames) {
+    if (!guideRenderer.ready || !state.motion) return false;
+    if (state.guideAnimation) cancelAnimationFrame(state.guideAnimation);
+    const portal = $("#portal");
+    const start = performance.now();
+    let lastRendered = -1;
+    const render = now => {
+      const elapsed = Math.min(duration, now - start);
+      const frameNumber = Math.min(totalFrames - 1, Math.floor(elapsed / duration * totalFrames));
+      if (frameNumber !== lastRendered) {
+        lastRendered = frameNumber;
+        const progress = frameNumber / (totalFrames - 1);
+        let index = sequence.length - 2;
+        for (let i = 0; i < sequence.length - 1; i += 1) {
+          if (progress >= sequence[i][0] && progress <= sequence[i + 1][0]) { index = i; break; }
+        }
+        const [startAt, fromFrame] = sequence[index];
+        const [endAt, toFrame] = sequence[index + 1];
+        const local = endAt === startAt ? 1 : (progress - startAt) / (endAt - startAt);
+        drawGuideBlend(fromFrame, toFrame, Math.max(0, Math.min(1, local)));
+        setGuideState(local < .5 ? fromFrame : toFrame);
+        portal.dataset.animationFrame = String(frameNumber + 1);
+        portal.dataset.animationFrames = String(totalFrames);
+      }
+      if (elapsed < duration) state.guideAnimation = requestAnimationFrame(render);
+      else state.guideAnimation = null;
+    };
+    state.guideAnimation = requestAnimationFrame(render);
+    return true;
+  }
+
+  async function setupGuideRenderer() {
+    const portal = $("#portal");
+    const canvas = $("#guide-canvas");
+    if (!portal || !canvas) return false;
+    guideRenderer.canvas = canvas;
+    guideRenderer.context = canvas.getContext("2d", { alpha: true });
+    const frames = $$(".guide-frame", portal);
+    await Promise.all(frames.map(async image => {
+      const frame = [...image.classList].find(name => name.startsWith("guide-frame--"))?.replace("guide-frame--", "");
+      if (!frame) return;
+      if (!image.complete) await new Promise((resolve, reject) => { image.addEventListener("load", resolve, { once: true }); image.addEventListener("error", reject, { once: true }); });
+      if (image.decode) await image.decode().catch(() => {});
+      guideRenderer.images.set(frame, image);
+    }));
+    guideRenderer.ready = guideRenderer.images.size >= 20;
+    if (guideRenderer.ready) {
+      portal.classList.add("is-canvas-ready");
+      drawGuideFrame("walk-a");
+    }
+    return guideRenderer.ready;
+  }
 
   function clearGuideTimeline() {
     state.guideTimers.forEach(timer => clearTimeout(timer));
     state.guideTimers = [];
     if (state.guidePulse) clearInterval(state.guidePulse);
     state.guidePulse = null;
+    if (state.guideAnimation) cancelAnimationFrame(state.guideAnimation);
+    state.guideAnimation = null;
   }
 
   function setGuideFrame(frame) {
-    const portal = $("#portal");
-    if (!portal) return;
-    portal.dataset.guideFrame = frame;
-    portal.classList.toggle("is-pointing", frame === "point");
+    setGuideState(frame);
+    drawGuideFrame(frame);
   }
 
   function queueGuideFrame(frame, delay) {
@@ -101,10 +199,12 @@
       guide.style.animation = "";
     }
     if (!state.motion) { setGuideFrame("point"); return; }
+    if (renderGuideSequence(arrivalSequence, 5000, 150)) return;
     [
-      ["walk-a", 0], ["walk-b", 300], ["walk-a", 610], ["walk-b", 930],
-      ["turn", 1270], ["wave-a", 1610], ["wave-b", 1880],
-      ["wave-a", 2160], ["wave-b", 2410], ["point", 2760]
+      ["walk-a", 0], ["walk-c", 190], ["walk-b", 380], ["walk-d", 570],
+      ["walk-a", 760], ["walk-c", 950], ["walk-b", 1140], ["walk-d", 1330],
+      ["turn-a", 1510], ["turn-b", 1690], ["turn", 1870],
+      ["wave-a", 2100], ["wave-b", 2380], ["wave-a", 2660], ["point", 2980]
     ].forEach(([frame, delay]) => queueGuideFrame(frame, delay));
   }
 
@@ -112,36 +212,44 @@
     const portal = $("#portal");
     clearGuideTimeline();
     portal.classList.add("is-speaking");
-    let alternate = false;
-    setGuideFrame("wave-a");
-    state.guidePulse = setInterval(() => {
-      alternate = !alternate;
-      setGuideFrame(alternate ? "wave-b" : "wave-a");
-    }, state.motion ? 240 : 600);
-    state.guideTimers.push(setTimeout(() => {
-      if (state.guidePulse) clearInterval(state.guidePulse);
-      state.guidePulse = null;
-      setGuideFrame("point");
-    }, state.motion ? 1550 : 100));
+    if (!state.motion) { setGuideFrame("point"); return; }
+    if (renderGuideSequence(greetingSequence, 4200, 126)) return;
+    [
+      ["hi-h", 0], ["hi-ee", 170], ["wave-b", 390],
+      ["exp-eh", 610], ["exp-p", 820], ["exp-lore", 1060],
+      ["my-m", 1460], ["my-eye", 1660],
+      ["uni-u", 1940], ["uni-nee", 2180], ["uni-verse", 2460],
+      ["point", 2900]
+    ].forEach(([frame, delay]) => queueGuideFrame(frame, delay));
   }
 
-  function speakIntroduction() {
+  function syncGuideWord(charIndex) {
+    const portal = $("#portal");
+    if (!portal) return;
+    portal.dataset.spokenWord = charIndex < 4 ? "hi" : charIndex < 12 ? "explore" : charIndex < 15 ? "my" : "universe";
+  }
+
+  function speakIntroduction(syncGuide = false) {
     const button = $("#voice-toggle");
     if (!("speechSynthesis" in window)) {
       toast("Voice introduction is not supported in this browser");
-      return;
+      return false;
     }
     speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance("Hello, I'm Yashovardhan. Explore my universe.");
+    const utterance = new SpeechSynthesisUtterance("Hi. Explore my universe.");
     const voices = speechSynthesis.getVoices();
     utterance.voice = voices.find(voice => voice.lang.toLowerCase() === "en-in") || voices.find(voice => voice.lang.toLowerCase().startsWith("en")) || null;
     utterance.lang = "en-IN";
-    utterance.rate = .88;
+    utterance.rate = .82;
     utterance.pitch = .96;
     utterance.volume = 1;
     utterance.onstart = () => button.classList.add("is-speaking");
+    utterance.onboundary = event => {
+      if (syncGuide && event.name === "word") syncGuideWord(event.charIndex);
+    };
     utterance.onend = utterance.onerror = () => button.classList.remove("is-speaking");
     speechSynthesis.speak(utterance);
+    return true;
   }
 
   function enterUniverse(withVoice = true) {
@@ -163,8 +271,8 @@
 
     if (!withVoice) { completeEntrance(); return; }
     runGuideGreeting();
-    speakIntroduction();
-    setTimeout(completeEntrance, state.motion ? 3400 : 2700);
+    speakIntroduction(true);
+    setTimeout(completeEntrance, state.motion ? 4400 : 2700);
   }
 
   function replayUniverse() {
@@ -184,7 +292,8 @@
     $("#voice-toggle").addEventListener("click", () => speakIntroduction());
     $("#replay-universe").addEventListener("click", replayUniverse);
     addEventListener("pagehide", () => { window.speechSynthesis?.cancel(); clearGuideTimeline(); });
-    runGuideArrival();
+    setGuideFrame("walk-a");
+    setupGuideRenderer().then(() => runGuideArrival(true)).catch(() => runGuideArrival());
     setTimeout(() => $("#portal-enter").focus(), 120);
   }
 
